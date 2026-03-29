@@ -1,6 +1,20 @@
 version: "3.8"
 
 services:
+  app:
+    build: .
+    container_name: stripe-payment-app
+    restart: always
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    environment:
+      PORT: 5000
+      DATABASE_URL: postgresql://postgres:randompassword@postgres:5432/stripe_payment_db
+
+    depends_on:
+      - postgres
   postgres:
     image: postgres:15
     container_name: stripe-postgres
