@@ -6,7 +6,7 @@ import { stripeWebhookHandler } from "./webhooks/stripe.webhook";
 
 dotenv.config();
 
-const app = express();
+export const app = express();
 
 app.post(
   "/webhook",
@@ -23,8 +23,10 @@ app.get("/", (req, res) => {
 app.use("/api/payments", paymentRoute);
 app.use("/api/payments", refundRoute);
 
-const PORT = Number(process.env.PORT) || 5000;
+if (require.main === module) {
+  const PORT = Number(process.env.PORT) || 5000;
 
-app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Server running on port ${PORT}`);
-});
+  app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
