@@ -4,6 +4,11 @@ import { createRefund } from "../services/refund.service";
 export async function refundPayment(req: Request, res: Response) {
   try {
     const { paymentId } = req.body;
+    if (!paymentId) {
+      return res.status(400).json({
+        error: "paymentId is required",
+      });
+    }
 
     const refund = await createRefund(paymentId);
 
