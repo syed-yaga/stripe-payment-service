@@ -121,6 +121,28 @@ docker-compose exec app npx prisma migrate deploy
 npm install
 npm run dev
 ```
+### API Documentation (Swagger)
+Interactive API documentation is available via Swagger UI.
+
+*Access Swagger Docs*
+
+After running the server, open:
+```
+http://localhost:5000/api-docs
+```
+### Authentication
+Some endpoints require JWT authentication.
+
+ 1. Create a user via:
+```
+POST /api/payments/create-user
+```
+2. Copy the returned token
+3. Click Authorize in Swagger UI
+4. Enter token in this format:
+```
+   YOUR_JWT_TOKEN
+```
 
 ## API Endpoints
 
