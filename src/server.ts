@@ -24,7 +24,10 @@ const options = {
 
     servers: [
       {
-        url: "http://localhost:5000",
+        url:
+          process.env.NODE_ENV === "production"
+            ? "https://stripe-payment-service-net0.onrender.com"
+            : "http://localhost:5000",
       },
     ],
 
