@@ -4,6 +4,11 @@ A production-ready Payment Microservice built with Node.js, TypeScript, PostgreS
 
 Includes secure payments, webhooks, refunds, analytics, and CI/CD.
 
+## 🚀 Live API
+
+- Base URL: https://stripe-payment-service-net0.onrender.com
+- Swagger Docs: https://stripe-payment-service-net0.onrender.com/api-docs
+
 ##  Features
 
 -  **JWT Authentication** (Secure APIs)
@@ -34,6 +39,17 @@ Client → API → Stripe → Webhook → Database
 - Payments are created via API
 - Stripe processes transactions
 - Webhooks update payment status in DB
+
+## Payment Flow
+
+1. Create User → Receive JWT Token  
+2. Create Payment Intent  
+3. Payment is confirmed (Stripe test mode)  
+4. Webhook updates payment status  
+5. Refund can be initiated only after successful payment  
+
+Note:
+Refund will fail if payment is not completed successfully.
 
 
 ##  Project Structure
@@ -130,6 +146,11 @@ After running the server, open:
 ```
 http://localhost:5000/api-docs
 ```
+#### Production:
+```
+https://stripe-payment-service-net0.onrender.com/api-docs
+```
+
 ### Authentication
 Some endpoints require JWT authentication.
 
@@ -143,6 +164,12 @@ POST /api/payments/create-user
 ```
    YOUR_JWT_TOKEN
 ```
+### Test APIs
+
+- Test endpoints directly from browser  
+- Validate request/response  
+- Test protected routes  
+- No need for Postman 
 
 ## API Endpoints
 
@@ -150,7 +177,7 @@ POST /api/payments/create-user
 |------|------|------|
 | POST | /api/payments/create-user | Create user & get token |
 | POST | /api/payments/create-payment | Create payment intent |
-| POST | /api/payments/refund | Process refund |
+| POST | /api/payments/refund | Refund a successful payment |
 | GET | /api/payments/history | Get transaction history |
 | GET | /api/payments/analytics | Get payment analytics |
 | POST | /webhook | Stripe webhook handler |
@@ -172,6 +199,15 @@ docker-compose down
 - Run migrations
 - Run tests
 - Build project
+
+## Deployment
+
+This service is deployed on Render with PostgreSQL.
+
+- Backend: Render Web Service  
+- Database: Render PostgreSQL  
+- CI/CD: GitHub Actions  
+
 
 ## Key Concepts Implemented
 - Payment lifecycle management  
